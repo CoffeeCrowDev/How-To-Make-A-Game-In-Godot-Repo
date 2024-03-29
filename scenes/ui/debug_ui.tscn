@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://nnovva2n1nt4"]
+
+[ext_resource type="Script" path="res://scenes/ui/debug_ui.gd" id="1_kpy2f"]
+
+[node name="Debug_UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kpy2f")
+
+[node name="DebugLbl" type="Label" parent="."]
+custom_minimum_size = Vector2(120, 280)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -82.0
+offset_bottom = 231.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "asdasdsad
+asdasdsad
+asdasdasd
+asdasdasd
+asdasdasd
+asdasdasd
+asdasdsad
+asdasdsad
+asdasdasd"
+autowrap_mode = 2
+clip_text = true

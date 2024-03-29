@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://dki6b5dg1ic1r"]
+
+[ext_resource type="PackedScene" uid="uid://blk71r3e0rsnw" path="res://scenes/ui/coin_counter.tscn" id="1_4h3rl"]
+[ext_resource type="PackedScene" uid="uid://nnovva2n1nt4" path="res://scenes/ui/debug_ui.tscn" id="2_cnyjl"]
+[ext_resource type="PackedScene" uid="uid://b6awktwrfkr6" path="res://scenes/ui/round_timer_ui.tscn" id="3_hs6g4"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="CoinCounter" parent="MarginContainer" instance=ExtResource("1_4h3rl")]
+layout_mode = 2
+
+[node name="Debug_UI" parent="MarginContainer" instance=ExtResource("2_cnyjl")]
+layout_mode = 2
+
+[node name="RoundTimerUI" parent="MarginContainer" instance=ExtResource("3_hs6g4")]
+layout_mode = 2

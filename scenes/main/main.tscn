@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://s6jiy88xy8be"]
+
+[ext_resource type="PackedScene" uid="uid://boq4yc5ngd3pm" path="res://scenes/managers/collectable_manager.tscn" id="1_8uj8t"]
+[ext_resource type="PackedScene" uid="uid://bfefjtl5d3a3r" path="res://scenes/managers/game_state_manager.tscn" id="2_jsuah"]
+[ext_resource type="PackedScene" uid="uid://dki6b5dg1ic1r" path="res://scenes/ui/hud.tscn" id="2_niuef"]
+[ext_resource type="PackedScene" uid="uid://cta64pqje1ts6" path="res://scenes/camera/player_camera.tscn" id="3_tbkli"]
+[ext_resource type="PackedScene" uid="uid://cm88lv3quf7ll" path="res://scenes/levels/level_2.tscn" id="5_cdaq6"]
+[ext_resource type="PackedScene" uid="uid://cdwtprsl6dgt5" path="res://scenes/levels/base_level.tscn" id="5_hxylh"]
+
+[node name="Main" type="Node2D"]
+
+[node name="UIContainer" type="CanvasLayer" parent="." groups=["ui_container"]]
+
+[node name="HUD" parent="UIContainer" instance=ExtResource("2_niuef")]
+
+[node name="ManagerContainer" type="Node" parent="." groups=["manager_container"]]
+
+[node name="CollectableManager" parent="ManagerContainer" instance=ExtResource("1_8uj8t")]
+
+[node name="GameStateManager" parent="ManagerContainer" instance=ExtResource("2_jsuah")]
+process_mode = 3
+level_1 = ExtResource("5_hxylh")
+level_2 = ExtResource("5_cdaq6")
+
+[node name="StateTimer" parent="ManagerContainer/GameStateManager" index="0"]
+wait_time = 30.0
+
+[node name="CameraContainer" type="Node2D" parent="." groups=["camera_container"]]
+
+[node name="PlayerCamera" parent="CameraContainer" instance=ExtResource("3_tbkli")]
+position = Vector2(329, -28)
+camera_offset_vector = Vector2(20, -50)
+
+[node name="LevelContainer" type="Node2D" parent="." groups=["level_container"]]
+
+[node name="Level_2" parent="LevelContainer" instance=ExtResource("5_cdaq6")]
+
+[node name="EntityContainer" type="Node2D" parent="." groups=["entity_container"]]
+
+[editable path="ManagerContainer/GameStateManager"]

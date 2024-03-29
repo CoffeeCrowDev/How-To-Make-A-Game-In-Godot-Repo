@@ -1,0 +1,106 @@
+[gd_scene load_steps=15 format=3 uid="uid://ce12o88cxwqk0"]
+
+[ext_resource type="PackedScene" uid="uid://daatjkpc0mhj4" path="res://scenes/enemy/base_enemy_entity.tscn" id="1_cw6ip"]
+[ext_resource type="Script" path="res://scenes/enemy/patroller/patroller_enemy.gd" id="2_7kfpx"]
+[ext_resource type="Script" path="res://scenes/handlers/movement_handler.gd" id="3_gxggb"]
+[ext_resource type="PackedScene" uid="uid://bnu0jrk6qa3dx" path="res://scenes/handlers/health_handler.tscn" id="4_4qhpa"]
+[ext_resource type="PackedScene" uid="uid://cr0m7v6lr4lkx" path="res://scenes/handlers/death_handler.tscn" id="5_06pce"]
+[ext_resource type="PackedScene" uid="uid://cukvs2vnpb3vj" path="res://scenes/handlers/hitbox_handler.tscn" id="6_vy1pe"]
+[ext_resource type="PackedScene" uid="uid://btfgi3ddb7426" path="res://scenes/handlers/enemy/enemy_collection_handler.tscn" id="8_5v8u6"]
+[ext_resource type="PackedScene" uid="uid://bcaelys5jusue" path="res://scenes/handlers/drop_handler.tscn" id="8_op0yi"]
+[ext_resource type="Script" path="res://scenes/statemachine/states/enemystates/EnemyStateMachine.gd" id="9_e1xk7"]
+[ext_resource type="Script" path="res://scenes/statemachine/states/enemystates/EnemyWanderState.gd" id="10_lw7i7"]
+[ext_resource type="Script" path="res://scenes/statemachine/states/enemystates/EnemyFleeState.gd" id="10_n2for"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y5ois"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s4twm"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qj1ad"]
+
+[node name="Patroller_Enemy" node_paths=PackedStringArray("floor_check_left", "floor_check_right", "wall_check_left", "wall_check_right") instance=ExtResource("1_cw6ip")]
+script = ExtResource("2_7kfpx")
+floor_check_left = NodePath("FloorCheckLeft")
+floor_check_right = NodePath("FloorCheckRight")
+wall_check_left = NodePath("WallCheckLeft")
+wall_check_right = NodePath("WallCheckRight")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -12)
+
+[node name="HurtboxHandler#CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+visible = false
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_y5ois")
+
+[node name="HealthHandler" parent="HandlerContainer" index="3" node_paths=PackedStringArray("death_handler") instance=ExtResource("4_4qhpa")]
+starting_health = 3
+death_handler = NodePath("../DeathHandler")
+Type = "Enemy"
+
+[node name="DeathHandler" parent="HandlerContainer" index="4" node_paths=PackedStringArray("parent") instance=ExtResource("5_06pce")]
+parent = NodePath("../..")
+Type = "Enemy"
+
+[node name="MovementHandler" type="Node2D" parent="HandlerContainer" index="5"]
+script = ExtResource("3_gxggb")
+movement_speed = 85.0
+acceleration = 6.0
+
+[node name="HitboxHandler" parent="HandlerContainer" index="6" node_paths=PackedStringArray("health_handler") instance=ExtResource("6_vy1pe")]
+collision_layer = 4
+collision_mask = 0
+health_handler = NodePath("../HealthHandler")
+invuln_time = 0.2
+
+[node name="CollisionShape2D" parent="HandlerContainer/HitboxHandler" index="0"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_s4twm")
+
+[node name="Drop_Handler" parent="HandlerContainer" index="7" instance=ExtResource("8_op0yi")]
+
+[node name="EnemyCollectionHandler" parent="HandlerContainer" index="8" node_paths=PackedStringArray("drop_handler") instance=ExtResource("8_5v8u6")]
+collision_layer = 0
+collision_mask = 8
+drop_handler = NodePath("../Drop_Handler")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HandlerContainer/EnemyCollectionHandler" index="0"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_qj1ad")
+
+[node name="FloorCheckRight" type="RayCast2D" parent="." index="5"]
+position = Vector2(7, 0)
+target_position = Vector2(0, 9)
+
+[node name="WallCheckRight" type="RayCast2D" parent="." index="6"]
+position = Vector2(7, -6)
+rotation = -1.57079
+target_position = Vector2(0, 9)
+
+[node name="FloorCheckLeft" type="RayCast2D" parent="." index="7"]
+position = Vector2(-8, 0)
+target_position = Vector2(0, 9)
+
+[node name="WallCheckLeft" type="RayCast2D" parent="." index="8"]
+position = Vector2(-8, -6)
+rotation = 1.57079
+target_position = Vector2(0, 9)
+
+[node name="EnemyStateMachine" type="Node" parent="." index="9" node_paths=PackedStringArray("enemy_entity", "current_state")]
+script = ExtResource("9_e1xk7")
+enemy_entity = NodePath("..")
+current_state = NodePath("EnemyWanderState")
+
+[node name="EnemyWanderState" type="Node" parent="EnemyStateMachine" index="0" node_paths=PackedStringArray("flee_timer")]
+script = ExtResource("10_lw7i7")
+flee_timer = NodePath("FleeTimer")
+
+[node name="FleeTimer" type="Timer" parent="EnemyStateMachine/EnemyWanderState" index="0"]
+
+[node name="EnemyFleeState" type="Node" parent="EnemyStateMachine" index="1"]
+script = ExtResource("10_n2for")
+
+[editable path="HandlerContainer/HurtboxHandler"]
+[editable path="HandlerContainer/HitboxHandler"]

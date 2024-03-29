@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://daatjkpc0mhj4"]
+
+[ext_resource type="Texture2D" uid="uid://dhsiohe7y7v2b" path="res://assets/kenney_pixel-platformer/Tiles/Characters/tile_0015.png" id="1_0aeat"]
+[ext_resource type="PackedScene" uid="uid://bxbxn137d4nq8" path="res://scenes/handlers/flip_handler.tscn" id="2_7mvli"]
+[ext_resource type="PackedScene" uid="uid://bb7jiv2bjde07" path="res://scenes/handlers/gravity_handler.tscn" id="3_8o1q2"]
+[ext_resource type="PackedScene" uid="uid://dxydtc6mem5h0" path="res://scenes/handlers/hurtbox_handler.tscn" id="4_p1j6g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tyn31"]
+radius = 8.0
+
+[node name="BaseEnemyEntity" type="CharacterBody2D"]
+collision_layer = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0aeat")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="HandlerContainer" type="Node2D" parent="."]
+
+[node name="FlipHandler" parent="HandlerContainer" instance=ExtResource("2_7mvli")]
+
+[node name="GravityHandler" parent="HandlerContainer" instance=ExtResource("3_8o1q2")]
+
+[node name="HurtboxHandler" parent="HandlerContainer" instance=ExtResource("4_p1j6g")]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HandlerContainer/HurtboxHandler" index="0"]
+shape = SubResource("CircleShape2D_tyn31")
+
+[editable path="HandlerContainer/HurtboxHandler"]

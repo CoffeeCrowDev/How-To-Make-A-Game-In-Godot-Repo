@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://blk71r3e0rsnw"]
+
+[ext_resource type="Script" path="res://scenes/ui/coin_counter.gd" id="1_s8uhj"]
+[ext_resource type="Texture2D" uid="uid://c8n3kdm5oey0h" path="res://assets/kenney_pixel-platformer/Tiles/tile_0151.png" id="2_e14x4"]
+
+[node name="CoinCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s8uhj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+offset_right = 88.0
+offset_bottom = 26.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_e14x4")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="CoinCounterNumber" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "4
+"

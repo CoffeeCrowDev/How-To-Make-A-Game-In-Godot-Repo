@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2sj34kv8n7f4"]
+
+[ext_resource type="Script" path="res://scenes/managers/entity_spawn_manger.gd" id="1_vxocq"]
+
+[node name="Entity_Spawn_Manger" type="Node"]
+script = ExtResource("1_vxocq")
+
+[node name="EnemySpawnPointContainer" type="Node" parent="."]
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+autostart = true

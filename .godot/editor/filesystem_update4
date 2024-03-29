@@ -1,0 +1,8 @@
+res://scenes/managers/entity_spawn_manger.tscn
+res://scenes/levels/level_2.tscn
+res://scenes/main/main.tscn
+res://scenes/managers/entity_spawn_manger.gd
+res://autoloads/SignalBus.gd
+res://scenes/managers/game_state_manager.gd
+res://scenes/player/player_entity.tscn
+res://scenes/handlers/death_handler.gd

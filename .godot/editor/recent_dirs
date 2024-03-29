@@ -1,0 +1,16 @@
+res://scenes/levels
+res://scenes/enemy/patroller
+res://scenes/player
+res://scenes/resources/upgrade_folder/upgrades
+res://autoloads
+res://scenes/handlers
+res://assets/kenney_pixel-platformer/Tiles
+res://scenes/ui
+res://scenes/handlers/enemy
+res://scenes/managers
+res://scenes/collectables
+res://scenes/ui/upgrade_menu
+res://scenes/handlers/player
+res://scenes/camera
+res://scenes/enemy
+res://scenes/main
